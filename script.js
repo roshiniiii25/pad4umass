@@ -35,6 +35,7 @@ function renderBuildings(buildings) {
   }
   list.innerHTML = buildings.map(b => {
     const isAvailable = b.status === "Pads available";
+    const statusText = b.status || "Not available";
     return `
       <div class="building-card" onclick="toggleDetails('${b.id}')">
         <div class="building-card-header">
@@ -48,6 +49,7 @@ function renderBuildings(buildings) {
         </div>
         <div class="building-details" id="details-${b.id}">
           <p><strong>Location:</strong> ${b.floor}</p>
+          <p><strong>Dispenser Status:</strong> ${statusText}</p>
           <p class="big-status" style="color:${isAvailable ? '#27ae60' : '#c0392b'}">
             ${isAvailable ? '✅ Pads are available in this restroom' : '❌ No pads available in this restroom'}
           </p>
@@ -271,6 +273,7 @@ document.addEventListener("click", (e) => {
     document.getElementById("searchDropdown").classList.remove("open");
   }
 });
+
 
 
 
