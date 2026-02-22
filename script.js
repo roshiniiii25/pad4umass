@@ -262,3 +262,4 @@ document.addEventListener("click", (e) => {
     document.getElementById("searchDropdown").classList.remove("open");
   }
 });
+
