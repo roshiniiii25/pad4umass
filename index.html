@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pad4U</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo" onclick="goHome()">🌸 Pad4U</div>
+    <div class="nav-buttons">
+      <button class="btn-primary">Find a Restroom</button>
+      <button class="btn-outline" onclick="showAdminLogin()">Admin</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Find pads <br><span>near you</span></h1>
+    <p>Real-time pad availability in women's restrooms across campus — powered by live sensors.</p>
+    <div class="search-bar">
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search building or floor..." id="searchInput" oninput="searchDropdown()" autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <button class="btn-near-me">📍 Near Me</button>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterBuildings('all', this)">All</button>
+    <button class="filter-btn" onclick="filterBuildings('available', this)">✅ Available</button>
+    <button class="filter-btn" onclick="filterBuildings('empty', this)">❌ Empty</button>
+  </div>
+
+  <!-- BUILDINGS LIST -->
+  <div class="buildings-list" id="buildingsList">
+    <p class="no-results">No restrooms found.</p>
+  </div>
+
+  <!-- ADMIN POPUP -->
+  <div class="overlay" id="adminOverlay">
+    <div class="admin-popup">
+      <div class="emoji">🔐</div>
+      <h2>Admin Login</h2>
+      <p>Restricted to authorised facilities staff only.</p>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="adminEmail" placeholder="admin@university.edu">
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="adminPassword" placeholder="••••••••">
+      </div>
+      <button class="btn-signin" onclick="adminLogin()">Sign In</button>
+      <br>
+      <button class="btn-cancel" onclick="hideAdminLogin()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ADMIN DASHBOARD -->
+  <div class="admin-dashboard" id="adminDashboard">
+    <div class="dashboard-nav">
+      <div class="nav-logo" onclick="goHome()">🌸 Pad4U Admin</div>
+      <button class="btn-logout" onclick="adminLogout()">Logout</button>
+    </div>
+    <div class="dashboard-content">
+      <h2>Admin Dashboard</h2>
+      <p>Manage pad availability across restrooms</p>
+
+      <div class="dispenser-status-card">
+        <div class="status-emoji" id="dashboardEmoji">🌸</div>
+        <h3>Current Dispenser Status</h3>
+        <div class="current-status" id="dashboardStatus">Loading...</div>
+        <br><br>
+        <button class="btn-restock" onclick="markAvailable()">✅ Mark as Restocked</button>
+      </div>
+
+      <div class="add-building-card">
+        <h3>🏢 Existing Buildings</h3>
+        <p>Manage current restroom locations</p>
+        <div id="dashboardBuildingsList">
+          <p style="color:#888; text-align:center;">Loading...</p>
+        </div>
+      </div>
+
+      <div class="add-building-card">
+        <h3>➕ Add a Building</h3>
+        <p>Add a new restroom location to the system</p>
+        <div class="input-group">
+          <label>Building Name</label>
+          <input type="text" id="buildingName" placeholder="e.g. Block A">
+        </div>
+        <div class="input-group">
+          <label>Floor / Location</label>
+          <input type="text" id="buildingFloor" placeholder="e.g. Level 2, Female Toilet">
+        </div>
+        <button class="btn-restock" onclick="addBuilding()">➕ Add Building</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
