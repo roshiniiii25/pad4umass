@@ -101,20 +101,29 @@ function loadDashboardBuildings() {
   list.innerHTML = allBuildings.map(b => {
     const isAvailable = b.status === "Pads available";
     return `
-      <div style="background:#faf8f5; border-radius:16px; padding:16px 20px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <p style="font-weight:800; color:#1a1a1a;">${b.name}</p>
-          <p style="font-size:13px; color:#888;">${b.floor}</p>
-        </div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span style="font-size:13px; font-weight:700; padding:6px 14px; border-radius:20px; background:${isAvailable ? '#e8f8f0' : '#fde8e8'}; color:${isAvailable ? '#27ae60' : '#c0392b'};">
-            ${isAvailable ? '✅ Available' : '❌ Empty'}
-          </span>
-          <button onclick="deleteBuilding('${b.id}')" style="background:#fde8e8; color:#c0392b; border:none; padding:6px 14px; border-radius:20px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; cursor:pointer;">🗑 Remove</button>
+      <div style="background:#faf8f5; border-radius:16px; padding:16px 20px; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <p style="font-weight:800; color:#1a1a1a;">${b.name}</p>
+            <p style="font-size:13px; color:#888;">${b.floor}</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:13px; font-weight:700; padding:6px 14px; border-radius:20px; background:${isAvailable ? '#e8f8f0' : '#fde8e8'}; color:${isAvailable ? '#27ae60' : '#c0392b'};">
+              ${isAvailable ? '✅ Available' : '❌ Empty'}
+            </span>
+            <button onclick="restockBuilding('${b.id}')" style="background:#27ae60; color:white; border:none; padding:6px 14px; border-radius:20px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; cursor:pointer;">🌸 Restock</button>
+            <button onclick="deleteBuilding('${b.id}')" style="background:#fde8e8; color:#c0392b; border:none; padding:6px 14px; border-radius:20px; font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; cursor:pointer;">🗑 Remove</button>
+          </div>
         </div>
       </div>
     `;
   }).join("");
+}
+
+function restockBuilding(id) {
+  database.ref("buildings/" + id + "/status").set("Pads available")
+    .then(() => alert("Building restocked! 🌸"))
+    .catch((error) => alert("Error: " + error.message));
 }
 
 function deleteBuilding(id) {
@@ -262,4 +271,5 @@ document.addEventListener("click", (e) => {
     document.getElementById("searchDropdown").classList.remove("open");
   }
 });
+
 
