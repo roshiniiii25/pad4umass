@@ -201,7 +201,7 @@ function addBuilding() {
   newBuilding.set({
     name: name,
     floor: floor,
-    status: "Pads available"
+    status: "Not available"
   }).then(() => {
     alert(name + " - " + floor + " has been added! 🌸");
     document.getElementById("buildingName").value = "";
